@@ -3,23 +3,27 @@ package mainGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 /**
- * A type of enemy in the game
+ * The bullets that the first boss shoots
  * 
  * @author Brandon Loehle 5/30/16
  *
  */
 
-public class EnemyShooterBullet extends GameObject {
+public class EnemyBossBullet extends GameObject {
 
 	private Handler handler;
+	Random r = new Random();
+	private int max = 30;
+	private int min = -30;
 
-	public EnemyShooterBullet(double x, double y, double velX, double velY, ID id, Handler handler) {
+	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
-		this.velX = velX;
-		this.velY = velY;
+		velX = (r.nextInt((max - min) + 1) + min);// OFFICIAL WAY TO GET A RANGE FOR randInt()
+		velY = 45;
 	}
 
 	public void tick() {
@@ -29,29 +33,16 @@ public class EnemyShooterBullet extends GameObject {
 		// if (this.y <= 0 || this.y >= Game.HEIGHT - 40) velY *= -1;
 		// if (this.x <= 0 || this.x >= Game.WIDTH - 16) velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, 4, 4, 0.025, this.handler));
+		if (this.y >= Game.HEIGHT)
+			handler.removeObject(this);
 
-		removeBullets();
-	}
-
-	public void removeBullets() {
-
-		for (int i = 0; i < handler.object.size(); i++) {
-			GameObject tempObject = handler.object.get(i);
-			if (tempObject.getId() == ID.EnemyShooterBullet) {
-				if (tempObject.getX() >= Game.WIDTH || tempObject.getY() >= Game.HEIGHT) {
-					handler.removeObject(tempObject);
-				}
-			}
-
-		}
+		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.025, this.handler));
 
 	}
 
 	public void render(Graphics g) {
 		g.setColor(Color.red);
-		g.fillRect((int) x, (int) y, 4, 4);
-
+		g.fillRect((int) x, (int) y, 16, 16);
 	}
 
 	@Override
@@ -60,3 +51,4 @@ public class EnemyShooterBullet extends GameObject {
 	}
 
 }
+

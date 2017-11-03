@@ -28,7 +28,7 @@ public class EnemyBoss extends GameObject {
 		super(Game.WIDTH / 2 - 48, -120, id);
 		this.handler = handler;
 		velX = 0;
-		velY = 2;
+		velY = 4;
 		img = getImage("images/EnemyBoss.png");
 		this.health = 1000;//full health is 1000
 	}
@@ -48,11 +48,11 @@ public class EnemyBoss extends GameObject {
 			if (velX == 0)
 				velX = 8;
 			this.isMoving = true;
-			spawn = r.nextInt(5);
+			spawn = r.nextInt(2);
 			if (spawn == 0) {
 				handler.addObject(
-						new EnemyBossBullet((int) this.x + 48, (int) this.y + 96, ID.EnemyBossBullet, handler));
-				this.health -= 3;
+						new EnemyBossBullet((int) this.x + 48, (int) this.y + 72, ID.EnemyBossBullet, handler));
+				this.health -= 1;
 			}
 		}
 
@@ -79,7 +79,7 @@ public class EnemyBoss extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
-		g.drawLine(0, 138, Game.WIDTH, 138);
+		g.drawLine(0, 300, Game.WIDTH, 300);
 		g.drawImage(img, (int) this.x, (int) this.y, 96, 96, null);
 
 		// HEALTH BAR
@@ -103,4 +103,4 @@ public class EnemyBoss extends GameObject {
 			handler.addObject(new EnemyBossBullet((int) this.x + 48, (int) this.y + 96, ID.EnemyBossBullet, handler));
 	}
 
-}
+} 

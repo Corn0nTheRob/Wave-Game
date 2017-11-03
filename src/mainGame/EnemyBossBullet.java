@@ -16,14 +16,14 @@ public class EnemyBossBullet extends GameObject {
 
 	private Handler handler;
 	Random r = new Random();
-	private int max = 15;
-	private int min = -15;
+	private int max = 30;
+	private int min = -30;
 
 	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = (r.nextInt((max - min) + 1) + min);// OFFICIAL WAY TO GET A RANGE FOR randInt()
-		velY = 30;
+		velY = 45;
 	}
 
 	public void tick() {
@@ -51,3 +51,4 @@ public class EnemyBossBullet extends GameObject {
 	}
 
 }
+

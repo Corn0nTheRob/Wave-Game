@@ -84,7 +84,7 @@ public class Spawn10to20 {
 			levelTimer--;// keep decrementing the level spawnTimer 60 times a second
 			if (tempCounter < 1) {// called only once, but sets the levelTimer to how long we want this level to
 									// run for
-				levelTimer = 2000;// 2000 / 60 method calls a second = 33.33 seconds long
+				levelTimer = 1500;
 				tempCounter++;// ensures the method is only called once
 			}
 			if (spawnTimer == 0) {// time to spawn another enemy

@@ -220,4 +220,12 @@ public class Game extends Canvas implements Runnable {
 		new Game();
 	}
 
+	public static double getPlayerX() {
+		return player.getX();
+	}
+	
+	public static double getPlayerY() {
+		return player.getY();
+	}
+
 }

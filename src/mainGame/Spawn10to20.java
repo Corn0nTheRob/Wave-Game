@@ -23,7 +23,7 @@ public class Spawn10to20 {
 	private String[] side = { "left", "right", "top", "bottom" };
 	ArrayList<Integer> levels = new ArrayList<Integer>();
 	private int index;
-	private int randomMax;
+	private int levelsRemaining;
 	private int levelNumber = 0;
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
@@ -41,11 +41,13 @@ public class Spawn10to20 {
 		hud.restoreHealth();
 		spawnTimer = 10;
 		levelTimer = 150;
-		randomMax = 10;
+		//randomMax = 10;
+		levelsRemaining = 10;
 		hud.setLevel(1);
 		tempCounter = 0;
 		addLevels();
-		index = r.nextInt(randomMax);
+		//index = r.nextInt(randomMax);
+		index = r.nextInt(levelsRemaining);
 		levelNumber = 0;
 	}
 
@@ -256,8 +258,8 @@ public class Spawn10to20 {
 				tempCounter++;
 			}
 			if (spawnTimer <= 0) {
- -				handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
- -				spawnTimer = 120;
+ 				handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
+				spawnTimer = 120;
 			}
 
 			if (levelTimer == 0) {
@@ -435,20 +437,20 @@ public class Spawn10to20 {
 			}
 			if (spawnTimer <= 0) {
 				handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
-				timer = 60;
+				spawnTimer = 60;
 			}
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
 				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
+				spawnTimer = 10;
 				tempCounter = 0;
-				if (randomMax == 1) {
+				if (levelsRemaining == 1) {
 					levelNumber = 101;
 				} else {
 					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
+					levelsRemaining--;
+					index = r.nextInt(levelsRemaining);
 					levelNumber = levels.get(index);
 				}
 			}
@@ -490,14 +492,14 @@ public class Spawn10to20 {
 	}
 
 	public void skipLevel() {
-		if (randomMax == 1) {
+		if (levelsRemaining == 1) {
 			tempCounter = 0;
 			levelNumber = 101;
-		} else if (randomMax > 1) {
+		} else if (levelsRemaining > 1) {
 			levels.remove(index);
-			randomMax--;
+			levelsRemaining--;
 			tempCounter = 0;
-			index = r.nextInt(randomMax);
+			index = r.nextInt(levelsRemaining);
 			levelNumber = levels.get(index);
 		}
 	}
@@ -506,8 +508,8 @@ public class Spawn10to20 {
 		levelNumber = -10;
 		tempCounter = 0;
 		levelTimer = 150;
-		randomMax = 10;
-		index = r.nextInt(randomMax);
+		levelsRemaining = 10;
+		index = r.nextInt(levelsRemaining);
 
 	}
 

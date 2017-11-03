@@ -18,7 +18,7 @@ public class Spawn10to20 {
 	private Game game;
 	private int scoreKeep = 0;
 	private Random r = new Random();
-	private int timer;
+	private int spawnTimer;
 	private int levelTimer;
 	private String[] side = { "left", "right", "top", "bottom" };
 	ArrayList<Integer> levels = new ArrayList<Integer>();
@@ -39,7 +39,7 @@ public class Spawn10to20 {
 		this.hud = hud;
 		this.game = game;
 		hud.restoreHealth();
-		timer = 10;
+		spawnTimer = 10;
 		levelTimer = 150;
 		randomMax = 10;
 		hud.setLevel(1);
@@ -427,13 +427,13 @@ public class Spawn10to20 {
 			} break;
 		
 		case 10:
-			timer--;
+			spawnTimer--;
 			levelTimer--;
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
 			}
-			if (timer <= 0) {
+			if (spawnTimer <= 0) {
 				handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
 				timer = 60;
 			}

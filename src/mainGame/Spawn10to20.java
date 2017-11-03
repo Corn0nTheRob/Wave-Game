@@ -458,15 +458,15 @@ public class Spawn10to20 {
 
 		case 101:
 			if (tempCounter < 1) {
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 1));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 2));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 3));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 7));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 8));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 9));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 300, Game.HEIGHT / 2 - 300, ID.BossEye, handler, 1));
+				handler.addObject(new BossEye(Game.WIDTH / 2   -50, Game.HEIGHT / 2 - 300, ID.BossEye, handler, 2));
+				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2 - 300, ID.BossEye, handler, 3));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 300, Game.HEIGHT / 2   -50, ID.BossEye, handler, 4));
+				handler.addObject(new BossEye(Game.WIDTH / 2  -50 , Game.HEIGHT / 2   -50, ID.BossEye, handler, 5));
+				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2   -50, ID.BossEye, handler, 6));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 300, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 7));
+				handler.addObject(new BossEye(Game.WIDTH / 2   -50, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 8));
+				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 9));
 				tempCounter++;
 			}
 

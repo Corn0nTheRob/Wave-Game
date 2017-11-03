@@ -138,7 +138,7 @@ public class Spawn10to20 {
 			}
 			
 			if (tempCounter < 1) {
-				levelTimer = 2000;
+				levelTimer = 1500;
 				tempCounter++;
 			}
 			if (spawnTimer == 30) {

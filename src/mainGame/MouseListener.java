@@ -25,12 +25,10 @@ public class MouseListener extends MouseAdapter {
 	private Upgrades upgrades;
 	private Player player;
 	private String upgradeText;
-	private int buttonwidth = Game.WIDTH/4;
-	private int buttonheight = Game.HEIGHT/5;
-	
+	private Victory victory;
 
 	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
-			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
+			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades, Victory victory) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
@@ -39,6 +37,7 @@ public class MouseListener extends MouseAdapter {
 		this.upgradeScreen = upgradeScreen;
 		this.player = player;
 		this.upgrades = upgrades;
+		this.victory = victory;
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -58,13 +57,27 @@ public class MouseListener extends MouseAdapter {
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 		}
+		
+		else if (game.gameState == STATE.Victory) {
+			handler.object.clear();
+			upgrades.resetUpgrades();
+			hud.health = 100;
+			hud.setScore(0);
+			hud.setLevel(1);
+			spawner.restart();
+			spawner.addLevels();
+			spawner2.restart();
+			spawner2.addLevels();
+			Spawn1to10.LEVEL_SET = 1;
+			game.gameState = STATE.Menu;
+		}
 
 		else if (game.gameState == STATE.Game) {
 
 		}
 
 		else if (game.gameState == STATE.Upgrade) {
-			if (mouseOver(mx, my, 100, 300, (Game.WIDTH)*3/4, (Game.HEIGHT)/10)) {
+			if (mouseOver(mx, my, 100, 300, 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(1);
 
 				upgrades.activateUpgrade(upgradeText);
@@ -72,7 +85,7 @@ public class MouseListener extends MouseAdapter {
 				upgradeScreen.removeUpgradeOption(1);
 
 				game.gameState = STATE.Game;
-			} else if (mouseOver(mx, my, 100, 300 + (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10)) {
+			} else if (mouseOver(mx, my, 100, 300 + (60 + Game.HEIGHT / 6), 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(2);
 
 				upgrades.activateUpgrade(upgradeText);
@@ -80,7 +93,7 @@ public class MouseListener extends MouseAdapter {
 				upgradeScreen.removeUpgradeOption(2);
 
 				game.gameState = STATE.Game;
-			} else if (mouseOver(mx, my, 100, 300 + 2 * (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10)) {
+			} else if (mouseOver(mx, my, 100, 300 + 2 * (60 + Game.HEIGHT / 6), 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(3);
 
 				upgrades.activateUpgrade(upgradeText);
@@ -94,7 +107,7 @@ public class MouseListener extends MouseAdapter {
 
 		else if (game.gameState == STATE.Menu) {
 			// Waves Button
-			if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)/2), ((Game.HEIGHT - buttonheight)/2), buttonwidth, buttonheight)) {
+			if (mouseOver(mx, my, 990, 135, 400, 400)) {
 				handler.object.clear();
 				game.gameState = STATE.Game;
 				handler.addObject(player);
@@ -102,26 +115,22 @@ public class MouseListener extends MouseAdapter {
 				// "images/PickupHealth.png", handler));
 			}
 
-			//Help Button
-			else if (mouseOver(mx, my, ((Game.WIDTH - 500)/2), ((Game.HEIGHT - 200)*5/6), 500, 200)) {
-				JOptionPane.showMessageDialog(game,
-						"Help"
-								+ "\nControls: WASD or arrow keys for movement");
-			}
-			
-
-			//Credits
-			else if (mouseOver(mx, my, ((Game.WIDTH - 500)*15/16), ((Game.HEIGHT - 200)*5/6), 500, 200)) {
-				JOptionPane.showMessageDialog(game,
-						"Made by The Brogrammers 2.0 for  "
-								+ "CSC 225."
-								+ "\n\nThis game is a work in progress. However,"
-								+ " it is 100% playable.");
+			// Help Button
+			else if (mouseOver(mx, my, 80, 135, 850, 250)) {
+				game.gameState = STATE.Help;
 			}
 
+			// Credits
+			else if (mouseOver(mx, my, 80, 435, 850, 250)) {
+				JOptionPane.showMessageDialog(game,
+						"Made by Brandon Loehle for his "
+								+ "final project in AP Computer Science senior year, 2015 - 2016."
+								+ "\n\nThis game is grossly unfinished with minor bugs. However,"
+								+ " it is 100% playable, enjoy!");
+			}
 
 			// Quit Button
-			else if (mouseOver(mx, my,((Game.WIDTH - 500)/16), ((Game.HEIGHT - 200)*5/6), 500, 200)) {
+			else if (mouseOver(mx, my, 80, 735, 850, 250)) {
 				System.exit(1);
 			}
 		}

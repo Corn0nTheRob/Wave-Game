@@ -41,6 +41,7 @@ public class BossEye extends GameObject {
 		this.handler = handler;
 		this.placement = placement;
 		this.timer = 200;
+		this.health = 1800;//full hp is 1800
 	}
 
 	public void tick() {
@@ -57,35 +58,40 @@ public class BossEye extends GameObject {
 		} else if (tempCounter == 1) {
 			spawn();
 			if (this.placement == 1 && this.spawnOrder >= 1) {
+				attackPlayer();
 				this.speed = -3;
-				attackPlayer();
 			} else if (this.placement == 2 && this.spawnOrder >= 2) {
+				attackPlayer();
 				this.speed = -4;
-				attackPlayer();
 			} else if (this.placement == 3 && this.spawnOrder >= 3) {
+				attackPlayer();
 				this.speed = -5;
-				attackPlayer();
 			} else if (this.placement == 4 && this.spawnOrder >= 4) {
+				attackPlayer();
 				this.speed = -5.5;
-				attackPlayer();
 			} else if (this.placement == 5 && this.spawnOrder >= 5) {
+				attackPlayer();
 				this.speed = -6;
-				attackPlayer();
 			} else if (this.placement == 6 && this.spawnOrder >= 6) {
+				attackPlayer();
 				this.speed = -6.5;
-				attackPlayer();
 			} else if (this.placement == 7 && this.spawnOrder >= 7) {
+				attackPlayer();
 				this.speed = -7;
-				attackPlayer();
 			} else if (this.placement == 8 && this.spawnOrder >= 8) {
+				attackPlayer();
 				this.speed = -7.5;
-				attackPlayer();
 			} else if (this.placement == 9 && this.spawnOrder >= 9) {
-				this.speed = -9.5;
 				attackPlayer();
+				this.speed = -9.5;
+				tempCounter++;
 			} else {
-				this.health = 0;
+				this.health--;
 			}
+		}
+		
+		if (tempCounter==2 && this.health > 0) {
+			this.health--;
 		}
 
 	}
@@ -120,6 +126,14 @@ public class BossEye extends GameObject {
 		g2d.setComposite(makeTransparent(alpha));
 		g.drawImage(img, (int) this.x, (int) this.y, null);
 		g2d.setComposite(makeTransparent(1));
+		
+		// HEALTH BAR
+				g.setColor(Color.GRAY);
+				g.fillRect((int)(Game.WIDTH / 3.5 - 500), Game.HEIGHT - 150, 1800, 50);
+				g.setColor(Color.RED);
+				g.fillRect((int)(Game.WIDTH / 3.5 - 500), Game.HEIGHT - 150, this.health, 50);
+				g.setColor(Color.WHITE);
+				g.drawRect((int)(Game.WIDTH / 3.5 - 500), Game.HEIGHT - 150, 1800, 50);
 	}
 
 	private AlphaComposite makeTransparent(float alpha) {

@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable {
 	private UpgradeScreen upgradeScreen;
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
-	private Player player;
+	private static Player player;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 	public static Window test;

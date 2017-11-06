@@ -21,14 +21,14 @@ import javax.swing.JButton;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	static Toolkit tool = Toolkit.getDefaultToolkit();
 	static Dimension scrnSize = Toolkit.getDefaultToolkit().getScreenSize();
 	static Rectangle winSize = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 	static int taskBarHeight = scrnSize.height - winSize.height;
 	public static final int WIDTH = ((int) (tool.getScreenSize().getWidth()));
 	public static final int HEIGHT = ((int) ((tool.getScreenSize().getHeight()) - taskBarHeight));
-
+	
 	private Thread thread;
 	private boolean running = false;
 
@@ -42,6 +42,7 @@ public class Game extends Canvas implements Runnable {
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
 	private static Player player;
+	private Victory victory;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 	public static Window test;
@@ -50,7 +51,7 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade,
+		Menu, Help, Game, GameOver, Upgrade, Victory
 	};
 
 	/**
@@ -67,11 +68,12 @@ public class Game extends Canvas implements Runnable {
 		upgrades = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner,
 				this.spawner2);
 		gameOver = new GameOver(this, this.handler, this.hud);
+		victory = new Victory(this, this.handler, this.hud);
 		mouseListener = new MouseListener(this, this.handler, this.hud, this.spawner, this.spawner2, this.upgradeScreen,
-				this.player, this.upgrades);
+				this.player, this.upgrades, this.victory);
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
-		test = new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
+		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
 	}
 
 	/**
@@ -149,6 +151,8 @@ public class Game extends Canvas implements Runnable {
 			upgradeScreen.tick();
 		} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
 			gameOver.tick();
+		} else if (gameState == STATE.Victory) {//game has been won, eye boss has been defeated
+			victory.tick();
 		}
 
 	}
@@ -186,6 +190,8 @@ public class Game extends Canvas implements Runnable {
 			upgradeScreen.render(g);
 		} else if (gameState == STATE.GameOver) {// game is over, draw the game over screen
 			gameOver.render(g);
+		} else if (gameState == STATE.Victory) {//game is over (won), draw victory screen
+			victory.render(g);
 		}
 
 		///////// Draw things above this//////////////
@@ -219,7 +225,7 @@ public class Game extends Canvas implements Runnable {
 
 		new Game();
 	}
-
+	
 	public static double getPlayerX() {
 		return player.getX();
 	}

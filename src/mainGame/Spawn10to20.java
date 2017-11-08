@@ -3,6 +3,8 @@ package mainGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mainGame.Game.STATE;
+
 /**
  * This class closely resembles Spawn1to10. Please refer to that class for
  * documentation
@@ -27,6 +29,7 @@ public class Spawn10to20 {
 	private int levelNumber = 0;
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
+	public int BossEyeTimer = 3600;
 
 	private double playerX;
 	private double playerY;
@@ -467,8 +470,28 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 300, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 7));
 				handler.addObject(new BossEye(Game.WIDTH / 2   -50, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 9));
+<<<<<<< HEAD
 				tempCounter++;
 			}
+=======
+				tempCounter++; 
+				} else if (tempCounter == 1) {
+//					LEVEL_SET_2_RESET++; //game automatically goes to victory screen when boss appears, CHANGE
+//					game.gameState = STATE.Victory;
+						for (int i = 0; i < handler.object.size(); i++) {
+							GameObject tempObject = handler.object.get(i);
+							if (tempObject.getId() == ID.BossEye) {
+								if (tempObject.getHealth() <= 0) {
+									handler.removeObject(tempObject);
+									//handler.clearEnemies();
+									LEVEL_SET_2_RESET++;
+									game.gameState = STATE.Victory;
+								}
+							}
+						}
+					}
+				
+>>>>>>> e7faf7de22939fd0f704d5020fedef676613bf0c
 
 		}
 		// WINNER

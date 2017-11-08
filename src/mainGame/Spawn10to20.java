@@ -470,10 +470,9 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 300, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 7));
 				handler.addObject(new BossEye(Game.WIDTH / 2   -50, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 9));
-<<<<<<< HEAD
+
 				tempCounter++;
-			}
-=======
+
 				tempCounter++; 
 				} else if (tempCounter == 1) {
 //					LEVEL_SET_2_RESET++; //game automatically goes to victory screen when boss appears, CHANGE
@@ -489,11 +488,13 @@ public class Spawn10to20 {
 								}
 							}
 						}
+				}
+		}	
 					}
 				
->>>>>>> e7faf7de22939fd0f704d5020fedef676613bf0c
 
-		}
+
+		
 		// WINNER
 		// else if(levelNumber){
 		// levelTimer --;
@@ -512,7 +513,7 @@ public class Spawn10to20 {
 		//
 		// }
 
-	}
+	
 
 	public void skipLevel() {
 		if (levelsRemaining == 1) {

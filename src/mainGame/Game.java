@@ -42,10 +42,9 @@ public class Game extends Canvas implements Runnable {
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
 	private static Player player;
-<<<<<<< HEAD
-=======
+
 	private Victory victory;
->>>>>>> e7faf7de22939fd0f704d5020fedef676613bf0c
+
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 	public static Window test;
@@ -237,12 +236,5 @@ public class Game extends Canvas implements Runnable {
 		return player.getY();
 	}
 
-	public static double getPlayerX() {
-		return player.getX();
-	}
-	
-	public static double getPlayerY() {
-		return player.getY();
-	}
 
 }

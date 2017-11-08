@@ -24,17 +24,16 @@ public class EnemyBossBullet extends GameObject {
 	Random r = new Random();
 	private int max = 30;
 	private int min = -30;
-<<<<<<< HEAD
+
 	private Image img;
-=======
->>>>>>> e7faf7de22939fd0f704d5020fedef676613bf0c
+
 
 	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = (r.nextInt((max - min) + 1) + min);// OFFICIAL WAY TO GET A RANGE FOR randInt()
 		velY = 45;
-<<<<<<< HEAD
+
 		
 		img = null;
 		try {
@@ -42,8 +41,7 @@ public class EnemyBossBullet extends GameObject {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-=======
->>>>>>> e7faf7de22939fd0f704d5020fedef676613bf0c
+
 	}
 
 	public Image getImage(String path) {

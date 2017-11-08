@@ -2,11 +2,15 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.io.File;
 import java.net.URL;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * The first boss in the game
@@ -28,8 +32,14 @@ public class EnemyBoss extends GameObject {
 		super(Game.WIDTH / 2 - 48, -120, id);
 		this.handler = handler;
 		velX = 0;
+
 		velY = 2;
-		img = getImage("images/EnemyBoss.png");
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/EnemyBoss.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.health = 1000;//full health is 1000
 	}
 
@@ -48,11 +58,11 @@ public class EnemyBoss extends GameObject {
 			if (velX == 0)
 				velX = 8;
 			this.isMoving = true;
-			spawn = r.nextInt(5);
+			spawn = r.nextInt(2);
 			if (spawn == 0) {
 				handler.addObject(
-						new EnemyBossBullet((int) this.x + 48, (int) this.y + 96, ID.EnemyBossBullet, handler));
-				this.health -= 3;
+						new EnemyBossBullet((int) this.x + 48, (int) this.y + 72, ID.EnemyBossBullet, handler));
+				this.health -= 1;
 			}
 		}
 
@@ -79,8 +89,10 @@ public class EnemyBoss extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
-		g.drawLine(0, 138, Game.WIDTH, 138);
-		g.drawImage(img, (int) this.x, (int) this.y, 96, 96, null);
+
+		g.drawLine(0, 300, Game.WIDTH, 300);
+		g.drawImage(img, (int) this.x, (int) this.y, Game.WIDTH / 10, Game.WIDTH /10, null);
+
 
 		// HEALTH BAR
 		g.setColor(Color.GRAY);
@@ -103,4 +115,4 @@ public class EnemyBoss extends GameObject {
 			handler.addObject(new EnemyBossBullet((int) this.x + 48, (int) this.y + 96, ID.EnemyBossBullet, handler));
 	}
 
-}
+} 

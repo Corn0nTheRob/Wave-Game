@@ -3,8 +3,14 @@ package mainGame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 import mainGame.Game.STATE;
 
@@ -23,6 +29,7 @@ public class Player extends GameObject {
 	private Game game;
 	private int damage;
 	private int playerWidth, playerHeight;
+	private Image img;
 	public static int playerSpeed = 10;
 
 	public Player(double x, double y, ID id, Handler handler, HUD hud, Game game) {
@@ -33,6 +40,13 @@ public class Player extends GameObject {
 		this.damage = 2;
 		playerWidth = 32;
 		playerHeight = 32;
+		
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/PlayerBoi.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -42,13 +56,12 @@ public class Player extends GameObject {
 		x = Game.clamp(x, 0, Game.WIDTH - 38);
 		y = Game.clamp(y, 0, Game.HEIGHT - 60);
 
-		// add the trail that follows it
-		handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
 		checkIfDead();
 
 	}
+	
 
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
@@ -98,12 +111,11 @@ public class Player extends GameObject {
 		}
 	}
 
-	@Override
+
 	public void render(Graphics g) {
-
-		g.setColor(Color.white);
-		g.fillRect((int) x, (int) y, playerWidth, playerHeight);
-
+	
+		g.drawImage(img, (int) this.x, (int) this.y, playerWidth, playerHeight, null);
+		
 	}
 
 	@Override
@@ -118,6 +130,14 @@ public class Player extends GameObject {
 	public void setPlayerSize(int size) {
 		this.playerWidth = size;
 		this.playerHeight = size;
+	}
+
+	public double getX() {
+		return this.x;
+	}
+	
+	public double getY() {
+		return this.y;
 	}
 
 }

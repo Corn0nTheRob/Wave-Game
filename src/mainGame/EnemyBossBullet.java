@@ -2,8 +2,14 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * The bullets that the first boss shoots
@@ -16,16 +22,36 @@ public class EnemyBossBullet extends GameObject {
 
 	private Handler handler;
 	Random r = new Random();
-	private int max = 15;
-	private int min = -15;
+	private int max = 30;
+	private int min = -30;
+	private Image img;
 
 	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = (r.nextInt((max - min) + 1) + min);// OFFICIAL WAY TO GET A RANGE FOR randInt()
-		velY = 30;
+		velY = 45;
+		
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/BossProjectile.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
+	public Image getImage(String path) {
+		Image image = null;
+		try {
+			URL imageURL = Game.class.getResource(path);
+			image = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return image;
+	}
+	
 	public void tick() {
 		this.x += velX;
 		this.y += velY;
@@ -36,18 +62,19 @@ public class EnemyBossBullet extends GameObject {
 		if (this.y >= Game.HEIGHT)
 			handler.removeObject(this);
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.025, this.handler));
+
 
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int) x, (int) y, 16, 16);
+
+		g.drawImage(img, (int) this.x, (int) this.y, 32, 32, null);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, 16, 16);
+		return new Rectangle((int) this.x, (int) this.y, 32, 32);
 	}
 
 }
+

@@ -2,7 +2,12 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.File;
+import java.util.Vector;
+
+import javax.imageio.ImageIO;
 
 /**
  * A type of enemy in the game
@@ -21,6 +26,7 @@ public class EnemyShooter extends GameObject {
 	private double bulletVelX;
 	private double bulletVelY;
 	private int bulletSpeed;
+	private Image img;
 
 	public EnemyShooter(double x, double y, int sizeX, int sizeY, int bulletSpeed, ID id, Handler handler) {
 		super(x, y, id);
@@ -36,7 +42,15 @@ public class EnemyShooter extends GameObject {
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);
 		}
+		
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/OctoBoi.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
 
 	public void tick() {
 		this.x += velX;
@@ -47,7 +61,7 @@ public class EnemyShooter extends GameObject {
 		if (this.x <= 0 || this.x >= Game.WIDTH - 16)
 			velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, this.sizeX, this.sizeY, 0.025, this.handler));
+
 
 		timer--;
 		if (timer <= 0) {
@@ -69,7 +83,7 @@ public class EnemyShooter extends GameObject {
 		bulletVelY = ((this.bulletSpeed / distance) * diffY);// numerator affects speed of enemy
 
 		handler.addObject(
-				new EnemyShooterBullet(this.x, this.y, bulletVelX, bulletVelY, ID.EnemyShooterBullet, this.handler));
+				new EnemyShooterBullet(x + this.sizeX / 2, y + this.sizeY /2, bulletVelX, bulletVelY, ID.EnemyShooterBullet, this.handler));
 	}
 
 	public void updateEnemy() {
@@ -82,8 +96,8 @@ public class EnemyShooter extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect((int) x, (int) y, this.sizeX, this.sizeY);
+
+		g.drawImage(img, (int) x, (int) y, this.sizeX, this.sizeY, null);
 
 	}
 

@@ -2,7 +2,13 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 /**
  * A type of enemy in the game
@@ -14,13 +20,23 @@ import java.awt.Rectangle;
 public class EnemyBasic extends GameObject {
 
 	private Handler handler;
+	private Image img;
 
 	public EnemyBasic(double x, double y, int velX, int velY, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		this.velX = velX;
 		this.velY = velY;
+		
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/JellyBoi.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.health = 1000;//full health is 1000
 	}
+		
 
 	public void tick() {
 		this.x += velX;
@@ -31,19 +47,31 @@ public class EnemyBasic extends GameObject {
 		if (this.x <= 0 || this.x >= Game.WIDTH - 16)
 			velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.025, this.handler));
 
+
+	}
+	
+	public Image getImage(String path) {
+		Image image = null;
+		try {
+			URL imageURL = Game.class.getResource(path);
+			image = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return image;
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.fillRect((int) x, (int) y, 16, 16);
+
+		g.drawImage( img, (int) x, (int) y, 64, 64, null);
 
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, 16, 16);
+		return new Rectangle((int) this.x, (int) this.y, 64, 64);
 	}
 
 }

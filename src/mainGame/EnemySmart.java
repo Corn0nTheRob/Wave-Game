@@ -2,7 +2,14 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.io.File;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * A type of enemy in the game
@@ -16,6 +23,7 @@ public class EnemySmart extends GameObject {
 	private Handler handler;
 	private GameObject player;
 	private int speed;
+	private Image img;
 
 	public EnemySmart(double x, double y, int speed, ID id, Handler handler) {
 		super(x, y, id);
@@ -25,9 +33,29 @@ public class EnemySmart extends GameObject {
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);
+		
+
+			try {
+				img = Toolkit.getDefaultToolkit().getImage("images/Leech.gif");
+				} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public Image getImage(String path) {
+		Image image = null;
+		try {
+			URL imageURL = Game.class.getResource(path);
+			image = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
+		return image;
 	}
+	
+
 
 	public void tick() {
 		this.x += velX;
@@ -46,13 +74,12 @@ public class EnemySmart extends GameObject {
 		// if (this.y <= 0 || this.y >= Game.HEIGHT - 40) velY *= -1;
 		// if (this.x <= 0 || this.x >= Game.WIDTH - 16) velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.green, 16, 16, 0.025, this.handler));
+	
 
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.green);
-		g.fillRect((int) x, (int) y, 16, 16);
+		g.drawImage(img, (int) this.x, (int) this.y, 48, 100, null);
 
 	}
 

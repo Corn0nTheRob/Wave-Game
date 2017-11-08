@@ -20,7 +20,7 @@ import java.util.Random;
 public class BossEye extends GameObject {
 
 	private Image img;
-	private Random r = new Random();;
+	//private Random r = new Random();;
 	private float alpha = 0;
 	private double life = 0.005;
 	private int tempCounter = 0;
@@ -28,7 +28,7 @@ public class BossEye extends GameObject {
 	private int spawnOrder = 1;// make them begin moving from left to right, top to bottom
 	private int placement;// where they are in the 3x3 grid of eyes
 	private double speed;
-	private double[] speedTypes = { -5, -6, -7, -8, -9 };
+	//private double[] speedTypes = { -5, -6, -7, -8, -9 };
 	private GameObject player;
 	private Handler handler;
 
@@ -37,7 +37,7 @@ public class BossEye extends GameObject {
 		this.img = getImage("images/bosseye.png");
 		this.velX = 0;
 		this.velY = 0;
-		this.speed = speedTypes[r.nextInt(4)];
+		//this.speed = speedTypes[r.nextInt(4)];
 		this.handler = handler;
 		this.placement = placement;
 		this.timer = 200;
@@ -57,22 +57,31 @@ public class BossEye extends GameObject {
 		} else if (tempCounter == 1) {
 			spawn();
 			if (this.placement == 1 && this.spawnOrder >= 1) {
+				this.speed = -3;
 				attackPlayer();
 			} else if (this.placement == 2 && this.spawnOrder >= 2) {
+				this.speed = -4;
 				attackPlayer();
 			} else if (this.placement == 3 && this.spawnOrder >= 3) {
+				this.speed = -5;
 				attackPlayer();
 			} else if (this.placement == 4 && this.spawnOrder >= 4) {
+				this.speed = -5.5;
 				attackPlayer();
 			} else if (this.placement == 5 && this.spawnOrder >= 5) {
+				this.speed = -6;
 				attackPlayer();
 			} else if (this.placement == 6 && this.spawnOrder >= 6) {
+				this.speed = -6.5;
 				attackPlayer();
 			} else if (this.placement == 7 && this.spawnOrder >= 7) {
+				this.speed = -7;
 				attackPlayer();
 			} else if (this.placement == 8 && this.spawnOrder >= 8) {
+				this.speed = -7.5;
 				attackPlayer();
 			} else if (this.placement == 9 && this.spawnOrder >= 9) {
+				this.speed = -9.5;
 				attackPlayer();
 			} else {
 				this.health = 0;

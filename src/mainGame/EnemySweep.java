@@ -31,6 +31,11 @@ public class EnemySweep extends GameObject {
 			velX *= -1;
 
 		handler.addObject(new Trail(x, y, ID.Trail, Color.cyan, 16, 16, 0.025, this.handler));
+		
+		if (this.y >= Game.HEIGHT * 1.5 || this.y <= Game.HEIGHT * -1.5) {
+			handler.removeObject(this);
+			System.out.print("Sweep is removed");
+		}
 
 	}
 

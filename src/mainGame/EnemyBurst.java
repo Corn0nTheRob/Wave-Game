@@ -66,6 +66,11 @@ public class EnemyBurst extends GameObject {
 			this.y += velY;
 
 		}
+		
+		if (this.y >= Game.HEIGHT * 2 || this.y <= Game.HEIGHT *-2 || this.x >= Game.WIDTH * 2 || this.x <= Game.WIDTH * -2) {
+			handler.removeObject(this);
+			System.out.print("Burst is removed");
+		}
 
 	}
 

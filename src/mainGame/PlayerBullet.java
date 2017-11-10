@@ -13,11 +13,11 @@ public class PlayerBullet extends GameObject {
 		super(x, y, id);
 		this.handler = handler;
 		
-		if (pVelX > 0) {velX = 45;}
-		if (pVelX < 0) {velX = -45;}
+		if (pVelX > 0) {velX = 20;}
+		if (pVelX < 0) {velX = -20;}
 
-		if (pVelY > 0) {velY = 45;}
-		if (pVelY < 0) {velY = -45;}
+		if (pVelY > 0) {velY = 20;}
+		if (pVelY < 0) {velY = -20;}
 	}
 
 	@Override

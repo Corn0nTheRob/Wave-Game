@@ -124,7 +124,7 @@ public class Menu {
 			g.setFont(font);
 			Rectangle titleCenter = new Rectangle (((Game.WIDTH - 500)/2), ((Game.HEIGHT - 200)/16), 500, 200);
 			g.setColor(Color.white);
-			drawCenteredString(g, "Wave Game: Brogrammer Edition", titleCenter, font);
+			drawCenteredString(g, "ABYSS", titleCenter, font);
 
 			
 			g.setFont(font2);

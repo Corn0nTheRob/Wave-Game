@@ -36,7 +36,23 @@ public class EnemySweep extends GameObject {
 			handler.removeObject(this);
 			System.out.print("Sweep is removed");
 		}
+		collision();
 
+	}
+	
+	public void collision() {
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() == ID.PlayerBullet) {// tempObject is an enemy
+
+				// collision code
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
+					setX(100000);
+				}
+			}
+		}
 	}
 
 	public void render(Graphics g) {

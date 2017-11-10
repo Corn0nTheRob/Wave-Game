@@ -59,6 +59,7 @@ public class Player extends GameObject {
 
 		collision();
 		checkIfDead();
+		drawFirstBullet();
 
 	}
 	

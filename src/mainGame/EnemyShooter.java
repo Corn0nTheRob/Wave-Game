@@ -2,8 +2,14 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.util.Vector;
 
@@ -16,7 +22,7 @@ import javax.imageio.ImageIO;
  *
  */
 
-public class EnemyShooter extends GameObject {
+public class EnemyShooter extends GameObject  {
 
 	private Handler handler;
 	private int sizeX;
@@ -26,7 +32,8 @@ public class EnemyShooter extends GameObject {
 	private double bulletVelX;
 	private double bulletVelY;
 	private int bulletSpeed;
-	private Image img;
+	private BufferedImage img;
+
 
 	public EnemyShooter(double x, double y, int sizeX, int sizeY, int bulletSpeed, ID id, Handler handler) {
 		super(x, y, id);
@@ -43,7 +50,6 @@ public class EnemyShooter extends GameObject {
 				player = handler.object.get(i);
 		}
 		
-		img = null;
 		try {
 			img = ImageIO.read(new File("images/OctoBoi.png"));
 		} catch (Exception e) {
@@ -53,13 +59,6 @@ public class EnemyShooter extends GameObject {
 	
 
 	public void tick() {
-		this.x += velX;
-		this.y += velY;
-
-		if (this.y <= 0 || this.y >= Game.HEIGHT - 40)
-			velY *= -1;
-		if (this.x <= 0 || this.x >= Game.WIDTH - 16)
-			velX *= -1;
 
 
 
@@ -73,8 +72,8 @@ public class EnemyShooter extends GameObject {
 	}
 
 	public void shoot() {
-		double diffX = this.x - player.getX() - 16;
-		double diffY = this.y - player.getY() - 16;
+		double diffX = this.x + (sizeX /2) - player.getX() - 16;
+		double diffY = this.y + (sizeY / 2) - player.getY() - 16;
 		double distance = Math.sqrt(((this.x - player.getX()) * (this.x - player.getX()))
 				+ ((this.y - player.getY()) * (this.y - player.getY())));
 		////////////////////////////// pythagorean theorem
@@ -96,14 +95,33 @@ public class EnemyShooter extends GameObject {
 	}
 
 	public void render(Graphics g) {
-
-		g.drawImage(img, (int) x, (int) y, this.sizeX, this.sizeY, null);
+		
+		double centerX = x + this.sizeX / 2;
+		double centerY = y +  this.sizeY / 2;
+		
+		      
+		double radiansToPlayer = (float) Math.atan2(centerX - player.getX(), centerY - player.getY());
+		
+		     
+        Graphics2D g2d = (Graphics2D)g; // Create a Java2D version of g.
+        AffineTransform reset = new AffineTransform();
+        reset.rotate(0, 0, 0);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.rotate(-(radiansToPlayer), centerX, centerY);
+        //draw the image here
+        g2d.drawImage(img, (int) this.x, (int) this.y, sizeX, sizeY, null);
+        g2.setTransform(reset);
+        
 
 	}
+	
 
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle((int) this.x, (int) this.y, this.sizeX, this.sizeY);
 	}
+
+
+
 
 }

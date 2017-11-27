@@ -3,9 +3,11 @@ package mainGame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.net.URL;
 import java.util.Random;
@@ -115,8 +117,22 @@ public class Player extends GameObject {
 
 	public void render(Graphics g) {
 	
-		g.drawImage(img, (int) this.x, (int) this.y, playerWidth, playerHeight, null);
+		double centerX = x + playerWidth / 2;
+		double centerY = y +  playerHeight / 2;
 		
+		double angle = -Math.atan2(velX, velY);
+		      
+		
+		
+		     
+        Graphics2D g2d = (Graphics2D)g; // Create a Java2D version of g.
+        AffineTransform reset = new AffineTransform();
+        reset.rotate(0, 0, 0);
+        Graphics2D g2 = (Graphics2D)g;
+        g2.rotate((angle), centerX, centerY);
+
+        g2d.drawImage(img, (int) this.x, (int) this.y, playerWidth, playerHeight, null);
+        g2.setTransform(reset);
 	}
 
 	@Override

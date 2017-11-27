@@ -57,10 +57,10 @@ public class UpgradeScreen {
 		g.setColor(Color.WHITE);
 		g.drawString(text, Game.WIDTH / 2 - getTextWidth(font, text) / 2, 200);
 
-		// All pictures are 1721 x 174
-		g.drawImage(getImage(imagePaths.get(index1)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, 300, (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
-		g.drawImage(getImage(imagePaths.get(index2)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, 300 + (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
-		g.drawImage(getImage(imagePaths.get(index3)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, 300 + 2 * (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
+
+		g.drawImage(getImage(imagePaths.get(index1)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, (Game.HEIGHT/3), (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
+		g.drawImage(getImage(imagePaths.get(index2)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, (Game.HEIGHT/3) + (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
+		g.drawImage(getImage(imagePaths.get(index3)), (Game.WIDTH/2) - ((Game.WIDTH)*3/4)/2, (Game.HEIGHT/3) + 2 * (60 + Game.HEIGHT / 6), (Game.WIDTH)*3/4, (Game.HEIGHT)/10, null);
 
 	}
 

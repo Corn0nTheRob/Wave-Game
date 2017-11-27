@@ -67,6 +67,9 @@ public class Spawn1to10 {
 		
 		switch (levelNumber) {
 		
+		/**
+		 * Case system to spawn correct enemies based on current level
+		 */
 		case 0:
 			levelTimer--;
 			if (tempCounter < 1) {// display intro game message ONE time

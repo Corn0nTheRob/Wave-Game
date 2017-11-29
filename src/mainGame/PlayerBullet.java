@@ -8,6 +8,8 @@ import java.util.Random;
 public class PlayerBullet extends GameObject {
 
 	private Handler handler;
+	private int selfDestruct = 1;
+	private boolean fade = false;
 	
 	public PlayerBullet(double x, double y, double pVelX, double pVelY, ID id, Handler handler) {
 		super(x, y, id);
@@ -19,6 +21,8 @@ public class PlayerBullet extends GameObject {
 		if (pVelY > 0) {velY = 20;}
 		if (pVelY < 0) {velY = -20;}
 	}
+	
+	
 
 	@Override
 	public void tick() {
@@ -32,6 +36,14 @@ public class PlayerBullet extends GameObject {
 		if (this.y >= Game.HEIGHT || this.x >= Game.WIDTH)
 			handler.removeObject(this);
 			//handler.addObject(new Trail(x, y, ID.Trail, Color.MAGENTA, 16, 16, 0.025, this.handler));
+		collision();
+		if (fade==true) {
+			if (selfDestruct == 0) {
+				setX(100000);
+				handler.removeObject(this);
+			}
+			selfDestruct--;
+		}
 	}
 
 	@Override
@@ -47,4 +59,18 @@ public class PlayerBullet extends GameObject {
 		return new Rectangle((int) this.x, (int) this.y, 16, 16);
 	}
 	
+	public void collision() {
+
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() == ID.EnemyBoss || tempObject.getId() == ID.EnemyShooter || tempObject.getId() == ID.BossEye) {// tempObject is an enemy that should only get hit once
+
+				// collision code
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
+					fade = true;
+				}
+			}
+		}
+	}
 }

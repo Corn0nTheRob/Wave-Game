@@ -53,6 +53,7 @@ public class Menu {
 	private JPanel helpPanel;
 	private int buttonwidth = Game.WIDTH/4;
 	private int buttonheight = Game.HEIGHT/5;
+	private Image abyss;
 	
 	public Menu(Game game, Handler handler, HUD hud, Spawn1to10 spawner) {
 		this.game = game;
@@ -69,6 +70,16 @@ public class Menu {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		abyss = null;
+		try {
+			abyss = ImageIO.read(new File("images/abyss.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+
 
 		handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 500, 50, 50, 0, -2,
 				colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
@@ -116,15 +127,15 @@ public class Menu {
 
 	public void render(Graphics g) {
 		if (game.gameState == STATE.Menu) {
+			
 			g.drawImage(img, 0, 0, Game.WIDTH, Game.HEIGHT, null);
 			handler.render(g);
 			Font font = new Font("Amoebic", 1, Game.WIDTH/20);
 			Font font2 = new Font("Amoebic", 1, Game.WIDTH/30);
 
-			g.setFont(font);
-			Rectangle titleCenter = new Rectangle (((Game.WIDTH - 500)/2), ((Game.HEIGHT - 200)/16), 500, 200);
-			g.setColor(Color.white);
-			drawCenteredString(g, "ABYSS", titleCenter, font);
+			g.drawImage(abyss, ((Game.WIDTH - 720)/2), ((Game.HEIGHT - 200)/16), 720, 200, null);
+
+
 
 			
 			g.setFont(font2);
@@ -155,6 +166,8 @@ public class Menu {
 			Rectangle Creditbutton = new Rectangle (((Game.WIDTH - buttonwidth)*15/16), ((Game.HEIGHT - buttonheight)*5/6), buttonwidth, buttonheight);
 			g.setColor(Color.white);
 			drawCenteredString(g, "Credits", Creditbutton, font2 );
+			
+
 	
 
 

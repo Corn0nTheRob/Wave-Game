@@ -121,16 +121,15 @@ public class MouseListener extends MouseAdapter {
 			else if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)/2), ((Game.HEIGHT - buttonheight)*5/6), buttonwidth, buttonheight)) {
 				JOptionPane.showMessageDialog(game,
 						"Controls:"
-								+ " Use either WASD or the Arrow Keys to move.");
+								+ " Use either WASD or the Arrow Keys to move. \nYour character automatically shoots in the direction it is moving. \nAvoid and destroy enemies for as long as you can!");
 			}
 
 			// Credits
 			else if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)*15/16), ((Game.HEIGHT - buttonheight)*5/6), buttonwidth, buttonheight)) {
 				JOptionPane.showMessageDialog(game,
-						"Made by Brandon Loehle for his "
-								+ "final project in AP Computer Science senior year, 2015 - 2016."
-								+ "\n\nThis game is grossly unfinished with minor bugs. However,"
-								+ " it is 100% playable, enjoy!");
+						"Made by The Brogrammers 2.0 for their"
+								+ " CSC 225 class.");
+
 			}
 
 			// Quit Button

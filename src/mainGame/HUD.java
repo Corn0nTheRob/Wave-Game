@@ -3,6 +3,10 @@ package mainGame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 /**
  * The main Heads Up Display of the game
@@ -32,6 +36,8 @@ public class HUD {
 	private Color scoreColor = Color.white;
 
 	private int extraLives = 0;
+	
+	private Image Background;
 
 	public void tick() {
 		health = Game.clamp(health, 0, health);
@@ -53,6 +59,8 @@ public class HUD {
 
 	public void render(Graphics g) {
 		Font font = new Font("Amoebic", 1, 30);
+	
+
 
 		g.setColor(Color.GRAY);
 		g.fillRect(15, 15, healthBarWidth, 64);

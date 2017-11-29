@@ -69,7 +69,23 @@ public class EnemyShooter extends GameObject {
 			updateEnemy();
 			timer = 10;
 		}
+		collision();
+	}
+		
+	public void collision() {
 
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() == ID.PlayerBullet) {// tempObject is an enemy
+
+				// collision code
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
+					this.sizeX--;
+					this.sizeY--;
+				}
+			}
+		}
 	}
 
 	public void shoot() {

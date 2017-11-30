@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.net.URL;
 import java.util.Random;
 
+import mainGame.Game.STATE;
+
 /**
  * The last boss in the game, shown in a 3x3 grid of 9 instances of BossEye
  * 
@@ -28,9 +30,11 @@ public class BossEye extends GameObject {
 	private int spawnOrder = 1;// make them begin moving from left to right, top to bottom
 	private int placement;// where they are in the 3x3 grid of eyes
 	private double speed;
+	private Game game;
 	//private double[] speedTypes = { -5, -6, -7, -8, -9 };
 	private GameObject player;
 	private Handler handler;
+	private Victory victory;
 
 	public BossEye(double x, double y, ID id, Handler handler, int placement) {
 		super(x, y, id);
@@ -45,6 +49,9 @@ public class BossEye extends GameObject {
 	}
 
 	public void tick() {
+		
+		//CheckIfDead();
+		
 		if (tempCounter == 0) {
 			if (alpha < 0.995) {// this handles each eye fading in to the game
 				alpha += life + 0.001;
@@ -58,50 +65,55 @@ public class BossEye extends GameObject {
 		} else if (tempCounter == 1) {
 			spawn();
 			if (this.placement == 1 && this.spawnOrder >= 1) {
-				this.speed = -3;
 				attackPlayer();
 				this.speed = -3;
 			} else if (this.placement == 2 && this.spawnOrder >= 2) {
-				this.speed = -4;
 				attackPlayer();
 				this.speed = -4;
 			} else if (this.placement == 3 && this.spawnOrder >= 3) {
-				this.speed = -5;
 				attackPlayer();
 				this.speed = -5;
 			} else if (this.placement == 4 && this.spawnOrder >= 4) {
-				this.speed = -5.5;
 				attackPlayer();
 				this.speed = -5.5;
 			} else if (this.placement == 5 && this.spawnOrder >= 5) {
-				this.speed = -6;
 				attackPlayer();
 				this.speed = -6;
 			} else if (this.placement == 6 && this.spawnOrder >= 6) {
-				this.speed = -6.5;
 				attackPlayer();
 				this.speed = -6.5;
 			} else if (this.placement == 7 && this.spawnOrder >= 7) {
-				this.speed = -7;
 				attackPlayer();
 				this.speed = -7;
 			} else if (this.placement == 8 && this.spawnOrder >= 8) {
-				this.speed = -7.5;
 				attackPlayer();
 				this.speed = -7.5;
 			} else if (this.placement == 9 && this.spawnOrder >= 9) {
-				this.speed = -9.5;
 				attackPlayer();
 				this.speed = -9.5;
-				tempCounter++;
-			} else {
-				this.health--;
+				//tempCounter++;
 			}
 		}
 		
-		if (tempCounter==2 && this.health > 0) {
+		if (this.health >= 0) {
 			this.health--;
+			System.out.println("Hp = " + this.health);
+//			if (this.health == 0) {
+//				tempCounter = 2;
+//				//game.gameState = STATE.Victory;
+//				if (game.gameState == STATE.Victory) {
+//				//	victory.tick();
+//				}
+//			}
 		}
+		
+//		if (this.health < 0) {
+//			System.out.println("boom");
+//			tempCounter = 2;
+//			game.gameState = STATE.Victory;
+//		}
+		
+		
 
 	}
 
@@ -110,6 +122,13 @@ public class BossEye extends GameObject {
 		if (timer == 0) {
 			this.spawnOrder++;
 			timer = 200;
+		}
+	}
+	
+	public void CheckIfDead() {
+		if (this.health < 0) {
+			//game.gameState = STATE.Victory;
+			
 		}
 	}
 
@@ -168,3 +187,4 @@ public class BossEye extends GameObject {
 	}
 
 }
+

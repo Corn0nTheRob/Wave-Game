@@ -29,9 +29,9 @@ public class UpgradeScreen {
 	private Handler handler;
 	private HUD hud;
 	private String text;
-	private String[] paths = { "images/clearscreenability.png", "images/decreaseplayersize.png", "images/extralife.png",
+	private String[] paths = {"images/clearscreenability.png", "images/decreaseplayersize.png", "images/extralife.png",
 			"images/healthincrease.png", "images/healthregeneration.png", "images/improveddamageresistance.png",
-			"images/levelskipability.png", "images/freezetimeability.png", "images/speedboost.png" };
+			"images/levelskipability.png", "images/freezetimeability.png", "images/damageboost.png"};
 	private ArrayList<String> imagePaths = new ArrayList<String>();
 	private Random r = new Random();
 	private int index1, index2, index3, tempCounter;
@@ -76,7 +76,7 @@ public class UpgradeScreen {
 		paths[5] = "images/improveddamageresistance.png";
 		paths[6] = "images/levelskipability.png";
 		paths[7] = "images/freezetimeability.png";
-		paths[8] = "images/speedboost.png";
+		paths[8] = "images/damageboost.png";
 
 	}
 
@@ -177,3 +177,4 @@ public class UpgradeScreen {
 	}
 
 }
+

@@ -27,6 +27,7 @@ public class EnemyBoss extends GameObject {
 	Random r = new Random();
 	private Image img;
 	private int spawn;
+	public static int enemyDamage = 2; 
 
 	public EnemyBoss(ID id, Handler handler) {
 		super(Game.WIDTH / 2 - 48, -120, id);
@@ -77,7 +78,22 @@ public class EnemyBoss extends GameObject {
 
 		// handler.addObject(new Trail(x, y, ID.Trail, Color.red, 96, 96, 0.025,
 		// this.handler));
+		collision();
+	}
+	
+		public void collision() {
 
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() == ID.PlayerBullet) {// tempObject is an enemy
+
+				// collision code
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit the boss
+					this.health -= enemyDamage;
+				}
+			}
+		}
 	}
 
 	public Image getImage(String path) {

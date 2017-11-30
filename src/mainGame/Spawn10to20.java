@@ -30,6 +30,7 @@ public class Spawn10to20 {
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
 	public int BossEyeTimer = 3600;
+	private Victory victory;
 
 	private double playerX;
 	private double playerY;
@@ -41,6 +42,7 @@ public class Spawn10to20 {
 		this.handler = handler;
 		this.hud = hud;
 		this.game = game;
+		this.victory = victory;
 		hud.restoreHealth();
 		spawnTimer = 10;
 		levelTimer = 150;
@@ -475,8 +477,7 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH / 2 + 200, Game.HEIGHT / 2 + 200, ID.BossEye, handler, 9));
 
 				tempCounter++;
-
-				tempCounter++; 
+				
 				} else if (tempCounter == 1) {
 //					LEVEL_SET_2_RESET++; //game automatically goes to victory screen when boss appears, CHANGE
 //					game.gameState = STATE.Victory;
@@ -488,6 +489,7 @@ public class Spawn10to20 {
 									//handler.clearEnemies();
 									LEVEL_SET_2_RESET++;
 									game.gameState = STATE.Victory;
+									tempCounter++;
 								}
 							}
 						}
@@ -549,3 +551,4 @@ public class Spawn10to20 {
 	}
 
 }
+

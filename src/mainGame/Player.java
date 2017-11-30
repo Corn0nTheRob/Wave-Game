@@ -135,7 +135,7 @@ public class Player extends GameObject {
 
 	public void drawFirstBullet() {
 		if (velX != 0 || velY != 0) 
-			handler.addObject(new PlayerBullet((int) this.x, (int) this.y, velX, velY, ID.PlayerBullet, handler));
+			handler.addObject(new PlayerBullet((int) this.x + 8, (int) this.y + 5, velX, velY, ID.PlayerBullet, handler));
 	}
 
 	

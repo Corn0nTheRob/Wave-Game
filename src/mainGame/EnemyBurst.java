@@ -2,8 +2,12 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.File;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 /**
  * A type of enemy in the game
@@ -19,6 +23,7 @@ public class EnemyBurst extends GameObject {
 	private int size;
 	private String side;
 	private Random r = new Random();
+	private Image img;
 
 	public EnemyBurst(double x, double y, double velX, double velY, int size, String side, ID id, Handler handler) {
 		super(x, y, id);
@@ -30,22 +35,44 @@ public class EnemyBurst extends GameObject {
 		this.size = size;
 		if (this.side.equals("left")) {
 			handler.object.add(new EnemyBurstWarning(0, 0, 25, Game.HEIGHT, ID.EnemyBurstWarning, handler));
+			img = null;
+			try {
+				img = ImageIO.read(new File("images/TurtleL.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			setPos();
 			setVel();
 		} else if (this.side.equals("right")) {
-			handler.object
-					.add(new EnemyBurstWarning(Game.WIDTH - 45, 0, 25, Game.HEIGHT, ID.EnemyBurstWarning, handler));
+			handler.object.add(new EnemyBurstWarning(Game.WIDTH - 45, 0, 25, Game.HEIGHT, ID.EnemyBurstWarning, handler));
+			img = null;
+			try {
+				img = ImageIO.read(new File("images/TurtleR.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			setPos();
 			setVel();
 
 		} else if (this.side.equals("top")) {
 			handler.object.add(new EnemyBurstWarning(0, 0, Game.WIDTH, 25, ID.EnemyBurstWarning, handler));
+			img = null;
+			try {
+				img = ImageIO.read(new File("images/TurtleT.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			setPos();
 			setVel();
 
 		} else if (this.side.equals("bottom")) {
-			handler.object
-					.add(new EnemyBurstWarning(0, Game.HEIGHT - 85, Game.WIDTH, 25, ID.EnemyBurstWarning, handler));
+			handler.object.add(new EnemyBurstWarning(0, Game.HEIGHT - 85, Game.WIDTH, 25, ID.EnemyBurstWarning, handler));
+			img = null;
+			try {
+				img = ImageIO.read(new File("images/TurtleB.png"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			setPos();
 			setVel();
 
@@ -110,8 +137,8 @@ public class EnemyBurst extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.orange);
-		g.fillRect((int) x, (int) y, this.size, this.size);
+
+		g.drawImage(img, (int) x, (int) y, this.size, this.size, null);
 
 	}
 

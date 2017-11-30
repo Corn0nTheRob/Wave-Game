@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
 /**
@@ -42,6 +45,7 @@ public class Game extends Canvas implements Runnable {
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
 	private static Player player;
+	private Image Background;
 
 	private Victory victory;
 
@@ -76,6 +80,13 @@ public class Game extends Canvas implements Runnable {
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
+		
+		Background = null;
+		try {
+			Background = ImageIO.read(new File("images/Background.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -181,7 +192,7 @@ public class Game extends Canvas implements Runnable {
 		///////// Draw things bellow this/////////////
 
 		g.setColor(Color.black);
-		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
+		g.drawImage(Background, 0, 0, null);
 
 		handler.render(g); // ALWAYS RENDER HANDLER, NO MATTER IF MENU OR GAME SCREEN
 

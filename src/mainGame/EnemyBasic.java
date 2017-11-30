@@ -82,24 +82,8 @@ public class EnemyBasic extends GameObject {
 	}
 
 	public void render(Graphics g) {
-	
 
-		double centerX = x + 48 / 2;
-		double centerY = y +  100 / 2;
-		
-		double angle = Math.atan2(velX, velY);
-		      
-		
-		
-		     
-        Graphics2D g2d = (Graphics2D)g; // Create a Java2D version of g.
-        AffineTransform reset = new AffineTransform();
-        reset.rotate(0, 0, 0);
-        Graphics2D g2 = (Graphics2D)g;
-        g2.rotate(-(angle), centerX, centerY);
-
-        g2d.drawImage(img, (int) this.x, (int) this.y, 64, 64, null);
-        g2.setTransform(reset);
+        g.drawImage(img, (int) this.x, (int) this.y, 64, 64, null); 
 
 	}
 

@@ -2,7 +2,11 @@ package mainGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 /**
  * A type of enemy in the game
@@ -14,12 +18,19 @@ import java.awt.Rectangle;
 public class EnemyFast extends GameObject {
 
 	private Handler handler;
+	private Image img;
 
 	public EnemyFast(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = 2;
 		velY = 9;
+		img = null;
+		try {
+			img = ImageIO.read(new File("images/FastBoi.png"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void tick() {
@@ -54,8 +65,8 @@ public class EnemyFast extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.cyan);
-		g.fillRect((int) x, (int) y, 16, 16);
+
+		g.drawImage(img, (int) x, (int) y, 64, 64, null);
 
 	}
 

@@ -32,7 +32,7 @@ public class EnemyShooter extends GameObject  {
 	private double bulletVelX;
 	private double bulletVelY;
 	private int bulletSpeed;
-	private BufferedImage img;
+
 
 	private Image img;
 	public static int sizeDecrease = 1;

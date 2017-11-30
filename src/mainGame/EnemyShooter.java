@@ -27,6 +27,7 @@ public class EnemyShooter extends GameObject {
 	private double bulletVelY;
 	private int bulletSpeed;
 	private Image img;
+	public static int sizeDecrease = 1;
 
 	public EnemyShooter(double x, double y, int sizeX, int sizeY, int bulletSpeed, ID id, Handler handler) {
 		super(x, y, id);
@@ -69,7 +70,23 @@ public class EnemyShooter extends GameObject {
 			updateEnemy();
 			timer = 10;
 		}
+		collision();
+	}
+		
+	public void collision() {
 
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+
+			if (tempObject.getId() == ID.PlayerBullet) {// tempObject is an enemy
+
+				// collision code
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
+					this.sizeX -= sizeDecrease;
+					this.sizeY -= sizeDecrease;
+				}
+			}
+		}
 	}
 
 	public void shoot() {

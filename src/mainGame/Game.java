@@ -34,7 +34,8 @@ public class Game extends Canvas implements Runnable {
 	
 	private Thread thread;
 	private boolean running = false;
-
+	private boolean pauseState = false; // added boolean to toggle elements within the tick method
+	
 	private Handler handler;
 	private HUD hud;
 	private Spawn1to10 spawner;
@@ -48,6 +49,7 @@ public class Game extends Canvas implements Runnable {
 	private Image Background;
 
 	private Victory victory;
+	private Pause pause; // added type Pause variable 
 
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
@@ -57,7 +59,7 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade, Victory
+		Menu, Help, Game, GameOver, Upgrade, Victory, Pause
 	};
 
 	/**
@@ -75,6 +77,7 @@ public class Game extends Canvas implements Runnable {
 				this.spawner2);
 		gameOver = new GameOver(this, this.handler, this.hud);
 		victory = new Victory(this, this.handler, this.hud);
+		pause = new Pause(this,this.handler, this.hud); // updated core game mechanics to include a new Pause state
 		mouseListener = new MouseListener(this, this.handler, this.hud, this.spawner, this.spawner2, this.upgradeScreen,
 				this.player, this.upgrades, this.victory);
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
@@ -152,8 +155,9 @@ public class Game extends Canvas implements Runnable {
 	 * appearance, etc).
 	 */
 	private void tick() {
+		if (pauseState == false){//stops ticking handler if game is paused  
 		handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
-		if (gameState == STATE.Game) {// game is running
+		}if (gameState == STATE.Game) {// game is running
 			hud.tick();
 			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
 				spawner.tick();
@@ -168,6 +172,9 @@ public class Game extends Canvas implements Runnable {
 			gameOver.tick();
 		} else if (gameState == STATE.Victory) {//game has been won, eye boss has been defeated
 			victory.tick();
+		} else if (gameState == STATE.Pause){ // game has been paused, handler stops ticking 
+			pause.tick();
+			pauseState = true; 
 		}
 
 	}
@@ -207,6 +214,8 @@ public class Game extends Canvas implements Runnable {
 			gameOver.render(g);
 		} else if (gameState == STATE.Victory) {//game is over (won), draw victory screen
 			victory.render(g);
+		} else if (gameState == STATE.Pause){ // game is paused, pause menu is drawn 
+			pause.render(g);
 		}
 
 		///////// Draw things above this//////////////

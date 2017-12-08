@@ -518,4 +518,15 @@ public class Spawn1to10 {
 	public void findY() {
 		playerY = Game.getPlayerY();
 	}
+	public static void newGame(){
+		removeLevels();
+		restart();
+		addLevels();
+		
+	}
+	public static void removeLevels() {
+		for (int i = 1; i <= 10; i++) {
+			levels.remove(i);
+		}
+	}
 }

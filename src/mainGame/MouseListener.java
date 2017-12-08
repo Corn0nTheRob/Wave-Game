@@ -143,7 +143,36 @@ public class MouseListener extends MouseAdapter {
 				return;
 			}
 		}
-	}
+	
+	else if (game.gameState == STATE.Pause) {
+			// Play Button
+			if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)/2), ((Game.HEIGHT - buttonheight)/2), buttonwidth, buttonheight)) {
+				game.gameState = STATE.Game;
+			}
+
+			// Help Button
+			else if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)/16), ((Game.HEIGHT - buttonheight)*5/6), buttonwidth, buttonheight)) {
+				JOptionPane.showMessageDialog(game,
+						"Controls: "
+								+ "Use either WASD or the Arrow Keys to move." + "\n" +
+								"Survive waves and defeat bosses to win." + "\n" +
+								"Click 'Exit' to return to main menu.");
+			}
+
+			// Exit Button
+			else if (mouseOver(mx, my, ((Game.WIDTH - buttonwidth)*15/16), ((Game.HEIGHT - buttonheight)*5/6), buttonwidth, buttonheight)) {
+				game.gameState = STATE.Menu;
+				handler.clearPlayer();
+				handler.clearEnemies();
+				//Spawn1to10.newGame();
+				hud.setLevel(0);
+				hud.resetHealth(); 
+				hud.setScore(0);
+				hud.setExtraLives(0);
+				
+			}
+
+		}
 
 	public void mouseReleased(MouseEvent e) {
 
